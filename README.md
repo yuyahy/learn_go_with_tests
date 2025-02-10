@@ -9,4 +9,4 @@
 - [ ] 内容を進める
 
 ## Link
-TODO: Update
+- [公式のGitHubリポジトリ](https://github.com/andmorefine/learn-go-with-tests/tree/main)
