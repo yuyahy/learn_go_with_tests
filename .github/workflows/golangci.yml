@@ -5,6 +5,9 @@ on: [pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
+    permissions:
+        pull-requests: write  # PRに書き込み権限を与える
+        contents: read  # リポジトリの内容を読み取る権限
 
     steps:
       - name: Check out code
