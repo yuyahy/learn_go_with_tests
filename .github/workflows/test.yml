@@ -22,7 +22,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-     - name: Build and run dev container task
+      - name: Build and run dev container task
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/yuyahy/learn_go_with_tests
