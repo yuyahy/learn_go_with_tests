@@ -31,7 +31,10 @@ func greetingPrefix(language string) (prefix string) {
 	return
 }
 
-// TODO
+func typo() {
+	mispell := "misspell"
+	println(mispell)
+}
 
 func main() {
 	fmt.Println(Hello("world", ""))
