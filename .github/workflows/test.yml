@@ -27,5 +27,5 @@ jobs:
         with:
           imageName: ghcr.io/yuyahy/learn_go_with_tests
           cacheFrom: ghcr.io/yuyahy/learn_go_with_tests
-          push: alway
+          push: always
           runCmd: go test ./...
