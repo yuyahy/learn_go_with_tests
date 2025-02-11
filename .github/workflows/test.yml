@@ -26,4 +26,6 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/yuyahy/learn_go_with_tests
+          cacheFrom: ghcr.io/yuyahy/learn_go_with_tests
+          push: alway
           runCmd: go test ./...
