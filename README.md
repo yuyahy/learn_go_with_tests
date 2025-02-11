@@ -5,7 +5,7 @@
 
 ## TODO
 - [x] Devcontainerで環境構築
-- [ ] CI/CDを作る
+- [x] CI/CDを作る
 - [ ] 内容を進める
 
 ## Link

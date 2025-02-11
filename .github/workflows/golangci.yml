@@ -1,0 +1,23 @@
+name: Lint Go Code
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+        pull-requests: write  # PRに書き込み権限を与える
+        contents: read  # リポジトリの内容を読み取る権限
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run golangci-lint with reviewdog
+        uses: reviewdog/action-golangci-lint@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          golangci_lint_flags: "--config=./.golangci.yml ./..."
+          go_version_file: ./go.mod
+          reporter: github-pr-review
+          level: error
