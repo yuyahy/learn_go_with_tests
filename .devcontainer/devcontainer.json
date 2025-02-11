@@ -17,7 +17,10 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "golang.go"
+                "golang.go",
+                "github.vscode-github-actions",
+                "me-dutour-mathieu.vscode-github-actions",
+                "streetsidesoftware.code-spell-checker"
             ]
         }
     }
