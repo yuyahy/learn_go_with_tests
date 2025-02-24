@@ -20,27 +20,86 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	dictionary.Add("test", "this is just a test")
-	want := "this is just a test"
-	got, err := dictionary.Search("test")
+	t.Run("new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		word := "test"
+		definition := "this is just a test"
+		dictionary.Add(word, definition)
+
+		assertDefinition(t, dictionary, word, definition)
+	})
+
+	t.Run("existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		err := dictionary.Add(word, "new test")
+		assertError(t, err, ErrWordExists)
+		assertDefinition(t, dictionary, word, definition)
+	})
+}
+
+func assertDefinition(t *testing.T, dictionary Dictionary, word, definition string) {
+	t.Helper()
+
+	got, err := dictionary.Search(word)
 	if err != nil {
-		t.Fatal("should find added word", err)
+		t.Fatal("should find added word:", err)
 	}
-	if got != want {
-		t.Errorf("got %q want %q", got, want)
+
+	if definition != got {
+		t.Errorf("got %q want %q", got, definition)
 	}
 }
 
 func assertError(t *testing.T, got, want error) {
 	t.Helper()
 	if got != want {
-		t.Errorf("got error %q want %q", got, want)
+		t.Errorf("got %q want %q", got, want)
+	}
+	if got == nil {
+		if want == nil {
+			return
+		}
+		t.Fatal("expected to get an error")
 	}
 }
+
 func assertStrings(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %q want %q given, %q", got, want, "test")
+	}
+}
+
+func TestUpdate(t *testing.T) {
+	t.Run("existing word", func(t *testing.T) {
+		word := "test"
+		definiton := "this is just a test"
+		dictionary := Dictionary{word: definiton}
+		newDefinition := "new definition"
+		dictionary.Update(word, newDefinition)
+
+		assertDefinition(t, dictionary, word, newDefinition)
+	})
+	t.Run("new word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a case"
+		dictionary := Dictionary{}
+		err := dictionary.Update(word, definition)
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
+}
+
+func TestDelete(t *testing.T) {
+	word := "test"
+	dictionary := Dictionary{word: "test definition"}
+
+	dictionary.Delete(word)
+
+	_, err := dictionary.Search(word)
+	if err != ErrNotFound {
+		t.Errorf("Expected %q to be deleted", word)
 	}
 }
