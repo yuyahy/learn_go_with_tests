@@ -16,5 +16,6 @@ func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	//	fmt.Println("aaaaaa")
-	http.ListenAndServe(":5000", http.HandlerFunc(MyGreeterHandler))
+	error := http.ListenAndServe(":5000", http.HandlerFunc(MyGreeterHandler))
+	fmt.Printf("unexpected error : %q", error)
 }
