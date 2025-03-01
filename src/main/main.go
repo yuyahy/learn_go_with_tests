@@ -14,6 +14,7 @@ type Sleeper interface {
 	Sleep()
 }
 
+// "spy"とは指定されたメソッドが何回呼ばれたか、どんな引数だったかをユニットテストでテストするテストダブル
 type SpySleeper struct {
 	Calls int // 実行回数をカウント
 }
@@ -41,6 +42,23 @@ func (s *CountdownOperationSpy) Write(p []byte) (n int, err error) {
 	return
 }
 
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
+}
+
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
+
 const write = "write"
 const sleep = "sleep"
 
@@ -55,6 +73,6 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
