@@ -37,7 +37,6 @@ func TestRacer(t *testing.T) {
 			t.Errorf("expected an error but didn't get one")
 		}
 	})
-
 }
 
 func makeDelayedServer(delay time.Duration) *httptest.Server {
