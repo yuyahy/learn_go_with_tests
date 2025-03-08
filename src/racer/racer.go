@@ -29,14 +29,14 @@ func ping(url string) chan struct{} {
 	// ch <- が永遠に届かないことになる
 	ch := make(chan struct{})
 	go func() {
-		http.Get(url)
+		_, _ = http.Get(url)
 		close(ch)
 	}()
 	return ch
 }
 
-func measureResponseTime(url string) time.Duration {
-	start := time.Now()
-	http.Get(url)
-	return time.Since(start)
-}
+// func measureResponseTime(url string) time.Duration {
+// 	start := time.Now()
+// 	http.Get(url)
+// 	return time.Since(start)
+// }
