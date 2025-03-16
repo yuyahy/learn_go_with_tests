@@ -41,7 +41,7 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 		for _, c := range s.response {
 			select {
 			case <-ctx.Done():
-				log.Println("spy store got cancelled")
+				log.Println("spy store got canceled")
 				return
 			default:
 				time.Sleep(10 * time.Millisecond)
@@ -76,7 +76,7 @@ func TestServer(t *testing.T) {
 		// store.assertWasNotCancelled()
 	})
 
-	t.Run("tells store to cancel work if request is cancelled", func(t *testing.T) {
+	t.Run("tells store to cancel work if request is canceled", func(t *testing.T) {
 		store := &SpyStore{response: data, t: t}
 		svr := Server(store)
 
