@@ -18,6 +18,6 @@ func Server(store Store) http.HandlerFunc {
 			return // todo: log error however you like
 		}
 
-		fmt.Fprint(w, data)
+		_, _ = fmt.Fprint(w, data)
 	}
 }
