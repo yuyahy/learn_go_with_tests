@@ -1,3 +1,4 @@
+version: "2"
 linters-settings:
   govet:
     check-shadowing: false
@@ -7,14 +8,11 @@ linters-settings:
     locale: US
 
 linters:
-  disable-all: true
   enable:
-    - goimports
     - unused
     - errcheck
     - gocognit
     - gocyclo
-    - gofmt
     - govet
     - misspell
     - staticcheck
