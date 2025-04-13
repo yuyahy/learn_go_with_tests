@@ -11,9 +11,17 @@ type Point struct {
 	Y float64
 }
 
+const secondHandLength = 90
+const clockCentreX = 150
+const clockCentreY = 150
+
 // 時刻から秒針の先端の座標を返す
 func SecondHand(t time.Time) Point {
-	return Point{150, 60}
+	p := secondHandPoint(t)
+	p = Point{p.X * secondHandLength, p.Y * secondHandLength} // 針の長さにスケール
+	p = Point{p.X, -p.Y}                                      // X軸に対して反転
+	p = Point{p.X + clockCentreX, p.Y + clockCentreY}         // 位置調整(原点は(150, 150))
+	return p
 }
 
 func secondsInRadians(t time.Time) float64 {
@@ -30,5 +38,8 @@ func testName(t time.Time) string {
 }
 
 func secondHandPoint(t time.Time) Point {
-	return Point{0, -1}
+	angle := secondsInRadians(t)
+	x := math.Sin(angle)
+	y := math.Cos(angle)
+	return Point{x, y}
 }
